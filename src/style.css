@@ -1,0 +1,123 @@
+body{
+  height: 100vh;
+}
+
+
+li{
+  list-style: none;
+  display: block;
+}
+
+#form{
+  grid-area: form;
+  margin-bottom: 1rem;
+}
+
+#tags{
+  grid-area: tags;
+
+  margin-right: 0.8rem;
+  padding-left: 0.4rem; 
+
+  border: 1px solid black;
+}
+
+fieldset span{
+  display: inline;
+}
+
+fieldset button{
+  /* display: block; */
+}
+
+#individualTag{
+  display: inline;
+}
+
+button{
+  
+  /* border: none; */
+}
+
+#notes{
+  grid-area: notes;
+  /* grid-column: 2 / 2; */
+  /* display: flex;  
+  flex-wrap: wrap; */
+
+  box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+}
+
+#notes-container{
+  display: flex;  
+  flex-wrap: wrap;
+}
+
+#grid{
+  display: grid;
+  grid-template-areas: 
+    'tags form'
+    /* "tags" "notes" */
+    'tags notes';
+  grid-template-columns: 1fr 4fr;
+  grid-template-rows: 1fr 4fr;
+}
+
+.individualNote{
+  grid-column: auto;
+  display: inline;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 5px;
+  /* min-height: 2rem;
+  max-height: 10rem; */
+  box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+  background-color: rgb(250, 255, 205);
+  
+}
+
+.individualNoteTitle{
+  /* font-weight:bolder; */
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.individualNoteContent{
+  margin-top: 0px;
+  margin-bottom: 3rem;
+  font-size: medium;
+}
+
+.individualNoteTag{
+  /* position: absolute;  */
+  bottom: 0;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: small;
+  
+}
+
+.individualNoteTag li{
+  display: inline;
+  border: 1px solid grey;
+  padding: 0rem 0.2rem;
+  margin: 0rem 0.1rem;
+  background-color: rgb(211, 211, 211);
+}
+
+#mainHeading{
+  text-align: center;
+  box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+  margin: 0rem 0rem;
+  padding: 1rem 0rem;
+  margin-bottom: 0.8rem;
+}
+
+#formHeading{
+  margin: 0px 50px;
+  text-align: center;
+}
+
+#notesHeading{
+  height: 40px;
+}
