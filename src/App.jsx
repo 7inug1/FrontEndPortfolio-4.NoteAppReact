@@ -3,39 +3,42 @@ import './style.css';
 import Form from "./Form.jsx";
 import Note from "./Note.jsx";
 import Tag from "./Tag.jsx";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Modal } from 'react-bootstrap';
 
 export default class App extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      key: [],
-      data: [],
-
+      // bootstrap
       show: false,
       setShow: false,
       
+      // new note data
       newNoteTitle: "",
       newNoteTag: "",
       newNoteTags: [],
       newNoteContent: "",
+      
+      // notes array
       notes: [
-        {"title": "How to make a new note", "tag": ["note"], "content": "Fill out the form above to make a new note!"}
-        // {"title": "make a table", "tag": ["recipe"], "content": "Put table boil it."},
-        // {"title": "계란밥 만드는 법", "tag": ["recipe", "soup"], "content": "계란에 밥 비비기"},
+
+        // {"title": "How to make a new note", "tag": ["note"], "content": "Fill out the form above to make a new note!"},
+        // {"title": "make a table", "tag": ["recipe"], "content": "Put table boil it."}
+        // {"title": "계란밥 만드는 법", "tag": ["recipe", "soup"], "content": "계란에 밥 비비기"}
         // {"title": "비빔밥 만드는 법", "tag": ["soup", "recipe"], "content": "밥 비비기"},
         // {"title": "How to study", "tag": ["recipe", "soup", "lifehack"], "content": "Just do it."},
         // {"title": "How to make a katsu", "tag": ["lifehack", "recipe", "soup"], "content": "Fry chicken or pork."},
         // {"title": "How to save money", "tag": ["lifehack"], "content": "Just save it."},
         // {"title": "What is life?", "tag": ["philosophy"], "content": "Life is something that has no meaning itself. You make of your own."}
       ],
+
       filteringTag: [], 
       filteredTags: [], 
       filteredNotes: [],
+
+      // for creating buttons
       unduplicatedTagsArray: [],
-      currentlyClickedFilter: false
+      // currentlyClickedFilter: false
     }
     this.handleNewNoteTitleChange = this.handleNewNoteTitleChange.bind(this); 
     this.handleNewNoteTagChange = this.handleNewNoteTagChange.bind(this); 
@@ -44,6 +47,7 @@ export default class App extends Component {
     this.getFilteredTags = this.getFilteredTags.bind(this);
     this.getNotesByTags = this.getNotesByTags.bind(this);
     this.submitNewNote = this.submitNewNote.bind(this); 
+    this.deleteIndividualNote = this.deleteIndividualNote.bind(this);
     this.addTags = this.addTags.bind(this); 
     this.addTagsButton = this.addTagsButton.bind(this); 
     this.removeFilteredTags = this.removeFilteredTags.bind(this);
@@ -56,28 +60,20 @@ export default class App extends Component {
   }
   
   saveNotesToLocalStorage(){
-    for(let i = 0; i < this.state.notes.length; i++){
-      let key = i;
-      // key.toString();
-      let item = JSON.stringify(this.state.notes[i]);
-      // console.log("key: " + key)
-      // console.log("item: " + (item))
-      localStorage.setItem(key, item);
-    }
-    console.log("localStorage length: " + localStorage.length)
+    console.log("this.state.notes: " + this.state.notes);
+    console.log("this.state.notes.length: " + this.state.notes.length);
+    let key = this.state.notes.length-1;
+    let item = JSON.stringify(this.state.notes[key]);
+    console.log("saveNotesToLocalStorage() item: " + item);
+    localStorage.setItem(key, item);
   }
 
   retrieveNotesFromLocalStorage(){
     let tempNotes = [];
-    // let totalTagsArray = 
-    // this.state.notes.map((note)=>
-    //   tempNotes.push(note)
-    // )
-    console.log("localStorage length: " + localStorage.length)
     for(let i = 0; i < localStorage.length; i++){
       let key = i;
       let retrievingData = JSON.parse(localStorage.getItem(key));
-      // console.log("retrievingData: " + retrievingData)
+      console.log("retrievingData: " + retrievingData)
       // console.log("retrievingData: " + JSON.parse(retrievingData))
       tempNotes.push(retrievingData);
     }
@@ -85,22 +81,70 @@ export default class App extends Component {
       notes: tempNotes
     })
   }
+  // this.setState({
+  //   notes: [...this.state.notes, { "title": this.state.newNoteTitle, "tag": this.state.newNoteTags, "content": this.state.newNoteContent}],
+  //   newNoteTitle: "",
+  //   newNoteTags: [],
+  //   newNoteContent: ""
+  // }, ()=>{
+  //   this.saveNotesToLocalStorage(); //lawcal
+  // });
 
   componentDidMount(){
-    this.saveNotesToLocalStorage();
-    this.retrieveNotesFromLocalStorage();
-    let totalTagsArray = this.state.notes.map((note)=>note.tag)
-    let totalTagsArrayFlat = totalTagsArray.flat()
+    this.retrieveNotesFromLocalStorage(); //lawcal
+    let totalTagsArray = this.state.notes.map((note)=>note.tag);
+    let totalTagsArrayFlat = totalTagsArray.flat();
+    // let tempNotes = 
     let tempFilteringTag = [undefined];
     this.setState({
       filteringTag: tempFilteringTag,
       unduplicatedTagsArray: [...new Set(totalTagsArrayFlat)],
     })
     
-    this.getNotesByTags(); 
+    this.getNotesByTags(!undefined); 
     
   }
 
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.notes !== this.state.notes || prevState.filteredTags !== this.state.filteredTags ){
+      // if(this.state.notes.length>0){
+      let tempTagArray = this.state.notes.map((note)=>note.tag) // 1. get all notes' tag
+      // }else{
+      //   let tempTagArray=[];
+      // }
+      let tempTagArrayFlat = tempTagArray.flat() // 2. make #1 flat
+      let tempTagArrayFlatUnduplicated = [...new Set(tempTagArrayFlat)] // 3. get #2 unduplicated
+
+      this.setState({
+        unduplicatedTagsArray: tempTagArrayFlatUnduplicated
+      })
+      
+      this.getNotesByTags(!undefined); // 게시판에 노트 추가되는 것처럼 보이게
+    }
+  }
+
+  deleteIndividualNote(event){
+    let key = event.target.id;
+    console.log(event.target);
+    console.log(key);
+    let notesCopy = this.state.notes;
+    if (window.confirm('정말 메모를 삭제하시겠습니까?')) {
+      
+      // 1. 잘 작동 안하는 localstorage 지우기
+      // for(let i = 0; i < localStorage.length; i++){
+      //   if(key === localStorage.getItem({i})){
+        localStorage.removeItem(localStorage.key(localStorage.length - key - 1)); //lawcal // 문제
+      //   }
+      // }
+      
+      // 2. 잘 작동하는 notes[]
+      notesCopy.splice(key, 1); 
+      this.setState({
+        notes: notesCopy
+      })
+    } 
+    this.getNotesByTags(!undefined);
+  }
   getFilteredTags(tag){
     let tempFilteredTags = [];
     tempFilteredTags.push(tag)
@@ -117,6 +161,9 @@ export default class App extends Component {
       this.setState({
         filteredNotes: this.state.notes 
       })
+      this.setState({
+        filteredTags: []
+      })
     }else{
       let tempFilteredNotesArray = [];
       let checker = (arr, target) => target.every(item => arr.includes(item));
@@ -132,21 +179,6 @@ export default class App extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState){
-    if(prevState.notes !== this.state.notes || prevState.filteredTags !== this.state.filteredTags ){
-      let tempTagArray = this.state.notes.map((note)=>note.tag) // 1. get all notes' tag
-      let tempTagArrayFlat = tempTagArray.flat() // 2. make #1 flat
-      let tempTagArrayFlatUnduplicated = [...new Set(tempTagArrayFlat)] // 3. get #2 unduplicated
-
-      this.setState({
-        unduplicatedTagsArray: tempTagArrayFlatUnduplicated
-      })
-      
-      this.getNotesByTags(!undefined);
-      // this.saveNotesToLocalStorage();
-      // this.handleShow();
-    }
-  }
 
   handleNewNoteTitleChange(event){
     this.setState({
@@ -167,7 +199,7 @@ export default class App extends Component {
       this.setState({
         newNoteTags: tempNewNoteTagsArray
       });  
-      console.log("newNoteTags: " + "["+this.state.newNoteTags+"]")
+      // console.log("newNoteTags: " + "["+this.state.newNoteTags+"]");
       event.target.value = "";
     } 
   }
@@ -195,7 +227,7 @@ export default class App extends Component {
 
   handleNewNoteContentChange(event){
     this.setState({
-      newNoteTag: event.target.value
+      newNoteContent: event.target.value
     });
   }
 
@@ -235,17 +267,17 @@ export default class App extends Component {
     // }
     // else{
 
-      this.setState({
-        notes: [...this.state.notes, { "title": this.state.newNoteTitle, "tag": this.state.newNoteTags, "content": this.state.newNoteContent}],
-        newNoteTitle: "",
-        newNoteTags: [],
-        newNoteContent: ""
-      });
-      event.target.reset();
-
-      console.log(this.state.notes)
-    // }
+    this.setState({
+      notes: [...this.state.notes, { "title": this.state.newNoteTitle, "tag": this.state.newNoteTags, "content": this.state.newNoteContent}],
+      newNoteTitle: "",
+      newNoteTags: [],
+      newNoteContent: ""
+    }, ()=>{
+      this.saveNotesToLocalStorage(); //lawcal
+    });
+    event.target.reset();   
   }
+
 
   handleShow(){
     this.setState({
@@ -264,7 +296,8 @@ export default class App extends Component {
   render() {
     return (
       <>  
-        <h1 id="mainHeading">Note App</h1>
+        <h1 id="nonDesktopMainHeading">React Note App</h1>
+        <h1 id="desktopMainHeading">React Note App Portfolio</h1>
         <div id="grid">
           {/* 1. Form */}
           <Form 
@@ -295,8 +328,12 @@ export default class App extends Component {
             setShow={this.state.setShow}
             handleShow={this.handleShow}
             handleClose={this.handleClose}
+            deleteIndividualNote={this.deleteIndividualNote}
           />
         </div>
+        <footer className="footer">
+          <p>&copy; 2021 Jinwook Shin</p>
+        </footer>
       </>
     );
   }

@@ -1,15 +1,99 @@
+/* https://hipwallpaper.com/view/NvWhsk */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&family=Shippori+Mincho+B1:wght@800&display=swap');
+
 body{
   height: 100vh;
+  font-family: 'Shippori Mincho B1', serif;
+  background-color: white;
 }
 
 
 li{
-  list-style: none;
+  /* list-style: none; */
   display: block;
+  line-height: 1.3125rem;
 }
+
+#addTagButton{
+  margin-left: 1.3rem;
+}
+
+#tagRemoveButton{
+  border: none;
+}
+
+/* .individualNote{
+  grid-column: auto;
+  display: inline;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 5px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.836);
+  background-color: rgb(250, 255, 205);
+} */
 
 #form{
   grid-area: form;
+  margin-bottom: 1rem;
+  /* background-color: white; */
+  border: 1px solid black;
+  box-shadow: 3px 3px 6px rgba(0,0,0);
+  /* https://stripesgenerator.com/ */
+  background-image: linear-gradient(0deg, #ffffff 47.62%, #8c8c8c 47.62%, #8c8c8c 50%, #ffffff 50%, #ffffff 97.62%, #8c8c8c 97.62%, #8c8c8c 100%);
+  background-size: 42.00px 42.00px;
+  background-size: 42.00px 42.00px;
+  /* background-size: 80.00px 80.00px; */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  min-width: 500px;
+}
+
+label{
+  padding-left: 1.5rem;
+}
+
+#formTitle, #formTag{
+  line-height: 0.1rem;
+  height: 20px;
+}
+
+#labelTitle{
+  /* padding-top: 2rem; */
+}
+
+#labelTag{
+
+}
+
+#labelContent{
+
+}
+
+input{
+  height: 0.7rem;
+}
+
+#inputTitle{
+  /* size: 66; */
+  /* min-width: 24.6rem; */
+  width: 60vw;
+}
+
+#inputTag{
+  min-width: 60vw;
+}
+
+#textareaContent{
+  min-width: 60vw;
+}
+
+textarea{
+  height: 2.3rem;
+}
+
+#submitButton{
+  margin-left: 1.3rem;
   margin-bottom: 1rem;
 }
 
@@ -20,23 +104,23 @@ li{
   padding-left: 0.4rem; 
 
   border: 1px solid black;
-}
-
-fieldset span{
-  display: inline;
-}
-
-fieldset button{
-  /* display: block; */
+  box-shadow: 3px 3px 6px rgba(0,0,0);
+  background-color: whitesmoke;
+  /* height: 200px;
+  min-height: 190px; */
+  padding-bottom: 1rem;
 }
 
 #individualTag{
   display: inline;
 }
 
-button{
-  
-  /* border: none; */
+#allTagButton, #individualTagButton, #filteredTagButton{
+  border: 2.5px solid black;
+  background-color: white;
+  margin: 0.1rem;
+  font-weight: bold;
+  box-shadow: 1px 2px 1px;
 }
 
 #notes{
@@ -44,8 +128,12 @@ button{
   /* grid-column: 2 / 2; */
   /* display: flex;  
   flex-wrap: wrap; */
-
+  background-image: url("./img/corkboard.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
   box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+  border: 1px solid black;
+  box-shadow: 3px 3px 6px rgba(0,0,0);
 }
 
 #notes-container{
@@ -61,6 +149,7 @@ button{
     'tags notes';
   grid-template-columns: 1fr 4fr;
   grid-template-rows: 1fr 4fr;
+  
 }
 
 .individualNote{
@@ -71,15 +160,31 @@ button{
   margin: 5px;
   /* min-height: 2rem;
   max-height: 10rem; */
-  box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.836);
   background-color: rgb(250, 255, 205);
-  
+  position: relative;
 }
 
 .individualNoteTitle{
   /* font-weight:bolder; */
   margin-top: 0px;
   margin-bottom: 0px;
+  display: inline;
+}
+
+.individualNoteDeleteButton{
+  color: white;
+  background-color: red;
+  border: none;
+  position: absolute;
+  right: -0.5rem;
+  top: -0.5rem;
+  box-shadow: 3px 2px black;
+}
+
+.individualNoteDeleteButton:hover{
+  scale: 1.1;
+
 }
 
 .individualNoteContent{
@@ -105,12 +210,17 @@ button{
   background-color: rgb(211, 211, 211);
 }
 
-#mainHeading{
+#desktopMainHeading{
   text-align: center;
   box-shadow: 3px 3px 6px rgba(0,0,0,.5);
   margin: 0rem 0rem;
   padding: 1rem 0rem;
   margin-bottom: 0.8rem;
+  background-color: whitesmoke;
+}
+
+#nonDesktopMainHeading{
+  display: none;
 }
 
 #formHeading{
@@ -120,4 +230,54 @@ button{
 
 #notesHeading{
   height: 40px;
+}
+
+.footer {
+  width: 100vw;
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 0.5rem 0;
+  margin: 0;
+  margin-top: 0.5rem;
+}
+
+@media screen and (orientation: portrait) and (max-width: 740px){
+  #desktopMainHeading{
+    display: none;
+  }
+
+  #nonDesktopMainHeading{
+    display: block;
+    text-align: center;
+    box-shadow: 3px 3px 6px rgba(0,0,0,.5);
+    margin: 0rem 0rem;
+    padding: 1rem 0rem;
+    margin-bottom: 0.8rem;
+    background-color: whitesmoke;
+  }
+
+  #grid{
+  display: grid;
+  grid-template-areas: 
+    'form'
+    'tags'
+    'notes';
+    grid-auto-flow: dense;
+  /* grid-template-columns: 1fr 4fr; */
+  grid-template-rows: 1fr 1fr 1fr;
+  }
+
+  #tags{
+    margin-bottom: 0.5rem;
+  }
+
+  #form{
+    margin-bottom: 0.5rem;
+    width: 100vw;
+  }
+
+  /* #notes{
+    margin-bottom: 0.5rem;
+  } */
 }
