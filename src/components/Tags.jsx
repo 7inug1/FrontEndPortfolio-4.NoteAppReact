@@ -1,4 +1,5 @@
 import React from 'react';
+// import Button from 'react-bootstrap/Button';
 
 export default class Tag extends React.Component {
   render() {
@@ -13,6 +14,8 @@ export default class Tag extends React.Component {
             <button
               id="allTagButton"
               onClick={() => this.props.getNotesByTags()}
+              variant="primary"
+              size="lg"
             >
               All
             </button>

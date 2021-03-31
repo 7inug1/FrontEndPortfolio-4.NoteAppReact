@@ -3,6 +3,7 @@ import './style.css';
 import NewNoteForm from './NewNoteForm.jsx';
 import Notes from './Notes.jsx';
 import Tags from './Tags.jsx';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class App extends Component {
   constructor(props) {
