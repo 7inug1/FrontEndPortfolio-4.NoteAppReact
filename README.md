@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# 
+## 목차
+```
+1. 소개
+2. 사용 방법
+3. 제작 계기
+4. 제작 과정 소개
+5. 제작 후 느낀 점
+6. 한계점
+```
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 1. 소개
+- Google Keep을 모티브로 제작한 노트 어플리케이션 포트폴리오입니다.
 
-## Available Scripts
+## 2. 사용 방법
 
-In the project directory, you can run:
+## 3. 제작 계기
+React를 사용하여 동적 프로그램인 노트 관리 프로그램을 만들어 Vanilla JavaScript로 만든 어플리케이션과 React로 만든 어플리케이션 간의 생산성과 유지/보수 차이를 경험하고자 하였습니다. 
 
-### `yarn start`
+## 4. 제작 과정 소개
+- 상위의 App 컴포넌트에 state를, 하위의 Form, Note, Tag 컴포넌트에 props로 데이터를 전달하여 컴포넌트 구성의 직관성을 높이고 유지/보수를 용이하게 하였습니다.
+- Form에 입력되는 여러 데이터를 처리하기 위한 여러 이벤트 메소드를 제작하여 사용자가 입력하는 값을 state로 어떻게 관리하는지 이해하게 되었습니다.
+- 리액트의 componentDidMount, componentDidUpdate와 같은 Lifecycle 메소드를 이용해 컴포넌트의 첫 생성 시점에, 그리고 컴포넌트가 업데이트될 때 수행할 행동을 작성하였고 리액트의 컴포넌트 구동 방식에 대해 알게 되었습니다.
+- 배열의 Map 함수를 이용하여 배열 안의 데이터를 쉽게 재가공하여 사용할 수 있게 프로그램을 작성하였습니다.
+- LocalStorage API를 이용해 사용자가 작성한 개별 노트가 저장되게 하였고 자바스크립트와 HTML5에서 제공하는 기본적인 API를 리액트에 활용할 수 있게 되었습니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 5. 제작 후 느낀 점
+- 본 포트폴리오를 통해 노트 관리 어플리케이션에 필요한 컴포넌트를 세분화하고 직접 제작하여 코드의 직관성, 유지보수성, 그리고 프로그램의 효율성을 직접 경험하게 되었습니다.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 6. 한계점
+- 필터하고 싶은 노트를 선택하고 해제하는 기능을 토글로 구현하지 못했습니다.
